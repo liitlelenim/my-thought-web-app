@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,8 +48,15 @@ class ThoughtServiceTest {
     }
 
     @Test
-    void testGettingFirstPageOfThoughts(){
-        IntStream.range(0,15).forEach((index)-> thoughtService.save(new Thought( "index:"+index)));
+    void testGettingFirstPageOfThoughts() {
+        IntStream.range(0, 15).forEach((index) -> {
+            thoughtService.save(new Thought("index:" + index));
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
         List<Thought> thoughtList = thoughtService.getLatestThoughtsPage(0);
         assertFalse(thoughtList.isEmpty());
