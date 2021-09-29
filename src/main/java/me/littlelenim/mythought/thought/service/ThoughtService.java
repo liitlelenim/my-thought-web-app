@@ -1,6 +1,7 @@
 package me.littlelenim.mythought.thought.service;
 
 import lombok.RequiredArgsConstructor;
+import me.littlelenim.mythought.thought.dto.PostThoughtDto;
 import me.littlelenim.mythought.thought.model.Thought;
 import me.littlelenim.mythought.thought.repository.TagRepository;
 import me.littlelenim.mythought.thought.repository.ThoughtRepository;
@@ -17,7 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ThoughtService {
     private final ThoughtRepository thoughtRepository;
+    public Thought post(PostThoughtDto dto){
+        Thought thought = new Thought(dto.getContent());
 
+        return save(thought);
+    }
     public Thought save(Thought thought){
         return thoughtRepository.save(thought);
     }
