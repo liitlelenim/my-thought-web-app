@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +23,13 @@ public class Thought {
     private String content;
     @Column(name = "post_date", nullable = false)
     private Date postDate;
+    @ManyToMany
+    @JoinTable(
+            name = "thought_tag",
+            joinColumns = @JoinColumn(name = "thought_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags;
 
     public Thought(String content) {
         this.content = content;

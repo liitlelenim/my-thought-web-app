@@ -3,6 +3,7 @@ package me.littlelenim.mythought.thought.model;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +21,8 @@ public class Tag {
     @Column(name = "name", unique = true, nullable = false, updatable = false)
     private String name;
 
+    @ManyToMany(mappedBy = "tags")
+    private List<Thought> thoughts;
     public Tag(String name) {
         this.name = name;
     }
