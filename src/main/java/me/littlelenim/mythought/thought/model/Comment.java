@@ -22,9 +22,13 @@ public class Comment {
     private String content;
     @Column(name = "post_date", nullable = false)
     private Date postDate;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "thought_id", nullable = false)
+    private Thought thought;
 
-    public Comment(String content) {
+    public Comment(String content, Thought thought) {
         this.content = content;
+        this.thought = thought;
         this.postDate = new Date();
     }
 

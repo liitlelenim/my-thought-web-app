@@ -31,6 +31,10 @@ public class Thought {
     )
     private List<Tag> tags;
 
+    @OneToMany(mappedBy = "thought", fetch = FetchType.LAZY
+            , cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
     public Thought(String content) {
         this.content = content;
         this.postDate = new Date();
