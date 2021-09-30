@@ -23,6 +23,7 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tags")
     private List<Thought> thoughts;
+
     public Tag(String name) {
         this.name = name;
     }
@@ -40,6 +41,14 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Thought> getThoughts() {
+        return thoughts;
+    }
+
+    public void setThoughts(List<Thought> thoughts) {
+        this.thoughts = thoughts;
     }
 
     @Override

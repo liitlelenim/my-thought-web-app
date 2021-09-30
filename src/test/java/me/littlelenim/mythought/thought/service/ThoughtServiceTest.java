@@ -66,4 +66,13 @@ class ThoughtServiceTest {
 
         assertTrue(firstThoughtFromList.getPostDate().after(secondThoughtFromList.getPostDate()));
     }
+    @Test
+    void testPostingThought(){
+        final String thoughtContent="test";
+        PostThoughtDto dto = new PostThoughtDto(thoughtContent,List.of("tag1","tag2","tag3"));
+
+        Thought thought = thoughtService.post(dto);
+        assertEquals(thoughtContent,thought.getContent());
+        assertFalse(thought.getTags().isEmpty());
+    }
 }
