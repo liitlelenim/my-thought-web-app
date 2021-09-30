@@ -1,6 +1,7 @@
 package me.littlelenim.mythought.thought.service;
 
 import me.littlelenim.mythought.thought.dto.PostThoughtDto;
+import me.littlelenim.mythought.thought.exception.InvalidThoughtIdException;
 import me.littlelenim.mythought.thought.model.Thought;
 import me.littlelenim.mythought.thought.repository.ThoughtRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -42,6 +43,16 @@ class ThoughtServiceTest {
     }
 
     @Test
+    void testGettingThoughtById() {
+
+        assertThrows(InvalidThoughtIdException.class, () -> thoughtService.getById(0L));
+        Thought thought = thoughtService.save(new Thought("Testing"));
+        thoughtService.getById(thought.getId());
+
+
+    }
+
+    @Test
     void testThoughtPostingUsingDto() {
         PostThoughtDto dto = new PostThoughtDto("Testing", List.of("test_tag1", "test_tag2"));
         thoughtService.post(dto);
@@ -66,13 +77,16 @@ class ThoughtServiceTest {
 
         assertTrue(firstThoughtFromList.getPostDate().after(secondThoughtFromList.getPostDate()));
     }
+
     @Test
-    void testPostingThought(){
-        final String thoughtContent="test";
-        PostThoughtDto dto = new PostThoughtDto(thoughtContent,List.of("tag1","tag2","tag3"));
+    void testPostingThought() {
+        final String thoughtContent = "test";
+        PostThoughtDto dto = new PostThoughtDto(thoughtContent, List.of("tag1", "tag2", "tag3"));
 
         Thought thought = thoughtService.post(dto);
-        assertEquals(thoughtContent,thought.getContent());
+        assertEquals(thoughtContent, thought.getContent());
         assertFalse(thought.getTags().isEmpty());
     }
+
+
 }

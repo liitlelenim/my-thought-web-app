@@ -2,6 +2,7 @@ package me.littlelenim.mythought.thought.service;
 
 import lombok.RequiredArgsConstructor;
 import me.littlelenim.mythought.thought.dto.PostThoughtDto;
+import me.littlelenim.mythought.thought.exception.InvalidThoughtIdException;
 import me.littlelenim.mythought.thought.model.Tag;
 import me.littlelenim.mythought.thought.model.Thought;
 import me.littlelenim.mythought.thought.repository.ThoughtRepository;
@@ -35,6 +36,11 @@ public class ThoughtService {
 
     public List<Thought> getAll() {
         return thoughtRepository.findAll();
+    }
+
+    public Thought getById(Long id){
+        return thoughtRepository.findById(id).orElseThrow(
+                ()->new InvalidThoughtIdException("Could not find a thought with given id"));
     }
 
     public List<Thought> getLatestThoughtsPage(int page) {
