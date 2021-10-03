@@ -79,6 +79,23 @@ class ThoughtServiceTest {
     }
 
     @Test
+    void testGettingFirstPageOfThoughtsWithGivenTag() {
+        final String tagName = "tag";
+        IntStream.range(0, 15).forEach((index) -> {
+            thoughtService.post(new PostThoughtDto("index:" + index, List.of("tag")));
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        List<Thought> thoughtList = thoughtService.getLatestThoughtsPageByTag(0, tagName);
+        assertFalse(thoughtList.isEmpty());
+        assertEquals(tagName, thoughtList.get(0).getTags().get(0).getName());
+
+    }
+
+    @Test
     void testPostingThought() {
         final String thoughtContent = "test";
         PostThoughtDto dto = new PostThoughtDto(thoughtContent, List.of("tag1", "tag2", "tag3"));

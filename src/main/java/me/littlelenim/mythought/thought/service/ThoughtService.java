@@ -53,4 +53,10 @@ public class ThoughtService {
         Pageable pageRequest = PageRequest.of(page, 5);
         return thoughtRepository.findByOrderByPostDateDesc(pageRequest);
     }
+
+    public List<Thought> getLatestThoughtsPageByTag(int page, String tagName) {
+        Tag tag = tagService.findByStringOrCreate(tagName);
+        Pageable pageRequest = PageRequest.of(page, 5);
+        return thoughtRepository.findByTagOrderByPostDateDesc(pageRequest, tag);
+    }
 }

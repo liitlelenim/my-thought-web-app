@@ -24,7 +24,7 @@ public class Thought {
     private String content;
     @Column(name = "post_date", nullable = false)
     private Date postDate;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "thought_tag",
             joinColumns = @JoinColumn(name = "thought_id"),
