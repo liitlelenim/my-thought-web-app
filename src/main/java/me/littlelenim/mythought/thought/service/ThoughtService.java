@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
+
 public class ThoughtService {
     private final ThoughtRepository thoughtRepository;
     private final TagService tagService;
@@ -38,9 +39,14 @@ public class ThoughtService {
         return thoughtRepository.findAll();
     }
 
-    public Thought getById(Long id){
+    public Thought getById(Long id) {
         return thoughtRepository.findById(id).orElseThrow(
-                ()->new InvalidThoughtIdException("Could not find a thought with given id"));
+                () -> new InvalidThoughtIdException("Could not find a thought with given id"));
+    }
+
+    public Thought getByIdWithComments(Long id) {
+        return thoughtRepository.findByIdAndJoinComments(id).orElseThrow(
+                () -> new InvalidThoughtIdException("Could not find a thought with given id"));
     }
 
     public List<Thought> getLatestThoughtsPage(int page) {

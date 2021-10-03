@@ -26,9 +26,8 @@ public class Comment {
     @JoinColumn(name = "thought_id", nullable = false)
     private Thought thought;
 
-    public Comment(String content, Thought thought) {
+    public Comment(String content) {
         this.content = content;
-        this.thought = thought;
         this.postDate = new Date();
     }
 
@@ -55,6 +54,14 @@ public class Comment {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    public Thought getThought() {
+        return thought;
+    }
+
+    public void setThought(Thought thought) {
+        this.thought = thought;
     }
 
     @Override

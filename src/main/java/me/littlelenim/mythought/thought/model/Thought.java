@@ -3,6 +3,7 @@ package me.littlelenim.mythought.thought.model;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -31,9 +32,8 @@ public class Thought {
     )
     private List<Tag> tags;
 
-    @OneToMany(mappedBy = "thought", fetch = FetchType.LAZY
-            , cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    @OneToMany(mappedBy = "thought", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public Thought(String content) {
         this.content = content;
@@ -70,6 +70,23 @@ public class Thought {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        comment.setThought(this);
+    }
+
+    public void removeComment(int index) {
+        this.comments.remove(index);
     }
 
     @Override
