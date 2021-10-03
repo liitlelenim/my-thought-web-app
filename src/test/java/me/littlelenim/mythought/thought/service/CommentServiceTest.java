@@ -33,13 +33,6 @@ class CommentServiceTest {
     }
 
     @Test
-    void testSavingComment() {
-        Comment comment = new Comment("Testing");
-        assertEquals(comment, commentService.save(comment));
-
-    }
-
-    @Test
     void testPostingComment() {
         Thought thought = new Thought("Testing thought");
         Long thoughtId = thoughtService.save(thought).getId();
