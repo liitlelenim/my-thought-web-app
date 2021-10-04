@@ -1,6 +1,5 @@
 package me.littlelenim.mythought.thought.service;
 
-import lombok.extern.log4j.Log4j2;
 import me.littlelenim.mythought.thought.dto.PostCommentDto;
 import me.littlelenim.mythought.thought.model.Comment;
 import me.littlelenim.mythought.thought.model.Thought;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@Log4j2
 class CommentServiceTest {
 
     @Autowired
