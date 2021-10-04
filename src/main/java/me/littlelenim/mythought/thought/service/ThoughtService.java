@@ -1,7 +1,7 @@
 package me.littlelenim.mythought.thought.service;
 
 import lombok.RequiredArgsConstructor;
-import me.littlelenim.mythought.thought.dto.PostThoughtDto;
+import me.littlelenim.mythought.thought.dto.request.PostThoughtDto;
 import me.littlelenim.mythought.thought.exception.InvalidThoughtIdException;
 import me.littlelenim.mythought.thought.model.Tag;
 import me.littlelenim.mythought.thought.model.Thought;

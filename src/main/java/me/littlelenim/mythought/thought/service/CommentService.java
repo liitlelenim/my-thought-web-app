@@ -1,7 +1,7 @@
 package me.littlelenim.mythought.thought.service;
 
 import lombok.RequiredArgsConstructor;
-import me.littlelenim.mythought.thought.dto.PostCommentDto;
+import me.littlelenim.mythought.thought.dto.request.PostCommentDto;
 import me.littlelenim.mythought.thought.model.Comment;
 import me.littlelenim.mythought.thought.model.Thought;
 import me.littlelenim.mythought.thought.repository.CommentRepository;

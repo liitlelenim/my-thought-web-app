@@ -1,6 +1,6 @@
 package me.littlelenim.mythought.thought.service;
 
-import me.littlelenim.mythought.thought.dto.PostThoughtDto;
+import me.littlelenim.mythought.thought.dto.request.PostThoughtDto;
 import me.littlelenim.mythought.thought.model.Tag;
 import me.littlelenim.mythought.thought.repository.TagRepository;
 import me.littlelenim.mythought.thought.repository.ThoughtRepository;

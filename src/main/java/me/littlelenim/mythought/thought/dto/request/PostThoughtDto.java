@@ -1,4 +1,4 @@
-package me.littlelenim.mythought.thought.dto;
+package me.littlelenim.mythought.thought.dto.request;
 
 import lombok.Data;
 
