@@ -14,12 +14,11 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-@Transactional
-
 public class CommentService {
     private final CommentRepository commentRepository;
     private final ThoughtService thoughtService;
 
+    @Transactional
     public Comment post(PostCommentDto dto) {
         Thought thought = thoughtService.getById(dto.getId());
         Comment comment = new Comment(dto.getContent());
@@ -32,6 +31,7 @@ public class CommentService {
         return commentRepository.findCommentsByThoughtOrderByPostDateDesc(thought, pageRequest);
     }
 
+    @Transactional
     public Comment save(Comment comment) {
         return commentRepository.save(comment);
     }

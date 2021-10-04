@@ -55,9 +55,7 @@ class TagServiceTest {
         List<Tag> mostPopularTags = tagService.getMostPopularTags();
 
         assertFalse(mostPopularTags.isEmpty());
-        assertEquals(2,mostPopularTags.size());
-        assertEquals(mostPopularTag,mostPopularTags.get(0).getName());
-
-
+        assertEquals(2, mostPopularTags.size());
+        assertEquals(mostPopularTag, mostPopularTags.get(0).getName());
     }
 }

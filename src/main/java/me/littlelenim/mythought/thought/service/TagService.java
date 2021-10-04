@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class TagService {
     private final TagRepository tagRepository;
 
+    @Transactional
     public Tag findByStringOrCreate(String tagName) {
         Tag foundTag = tagRepository.findByName(tagName);
         if (foundTag != null) {
@@ -28,6 +28,7 @@ public class TagService {
         return tagRepository.getTagsOrderedByThoughtsAmount(PageRequest.of(0, 5));
     }
 
+    @Transactional
     public Tag save(Tag tag) {
         return tagRepository.save(tag);
     }

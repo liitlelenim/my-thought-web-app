@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 
 public class ThoughtService {
     private final ThoughtRepository thoughtRepository;
     private final TagService tagService;
 
+    @Transactional
     public Thought post(PostThoughtDto dto) {
         Thought thought = new Thought(dto.getContent());
 
@@ -31,6 +31,7 @@ public class ThoughtService {
         return save(thought);
     }
 
+    @Transactional
     public Thought save(Thought thought) {
         return thoughtRepository.save(thought);
     }
