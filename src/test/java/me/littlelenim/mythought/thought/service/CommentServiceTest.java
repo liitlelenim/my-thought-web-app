@@ -35,8 +35,8 @@ class CommentServiceTest {
         Thought thought = new Thought("Testing thought");
         Long thoughtId = thoughtService.save(thought).getId();
         final String commentText = "Test comment";
-        PostCommentDto dto = new PostCommentDto(thoughtId, commentText);
-        Comment postedComment = commentService.post(dto);
+        PostCommentDto dto = new PostCommentDto(commentText);
+        Comment postedComment = commentService.post(dto, thoughtId);
 
         assertEquals(thought, postedComment.getThought());
         assertEquals(commentText, postedComment.getContent());

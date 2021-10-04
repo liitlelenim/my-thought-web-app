@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,5 +32,11 @@ public class TagService {
     @Transactional
     public Tag save(Tag tag) {
         return tagRepository.save(tag);
+    }
+
+    public List<String> tagListToTagNameList(List<Tag> tags) {
+        List<String> tagNames = new ArrayList<>();
+        tags.forEach(tag -> tagNames.add(tag.getName()));
+        return tagNames;
     }
 }

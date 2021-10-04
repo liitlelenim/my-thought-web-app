@@ -19,8 +19,8 @@ public class CommentService {
     private final ThoughtService thoughtService;
 
     @Transactional
-    public Comment post(PostCommentDto dto) {
-        Thought thought = thoughtService.getById(dto.getId());
+    public Comment post(PostCommentDto dto, long thoughtId) {
+        Thought thought = thoughtService.getById(thoughtId);
         Comment comment = new Comment(dto.getContent());
         thought.addComment(comment);
         return save(comment);
