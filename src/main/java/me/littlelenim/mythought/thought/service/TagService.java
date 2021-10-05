@@ -1,6 +1,7 @@
 package me.littlelenim.mythought.thought.service;
 
 import lombok.RequiredArgsConstructor;
+import me.littlelenim.mythought.thought.exception.MaxTagLengthExceededException;
 import me.littlelenim.mythought.thought.model.Tag;
 import me.littlelenim.mythought.thought.repository.TagRepository;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,9 @@ public class TagService {
 
     @Transactional
     public Tag findByStringOrCreate(String tagName) {
+        if (tagName.length() > 20) {
+            throw new MaxTagLengthExceededException("Tag length should be at most 20 characters");
+        }
         Tag foundTag = tagRepository.findByName(tagName);
         if (foundTag != null) {
             return foundTag;
@@ -24,6 +28,7 @@ public class TagService {
             return save(new Tag(tagName));
         }
     }
+
 
     public List<Tag> getMostPopularTags() {
         return tagRepository.getTagsOrderedByThoughtsAmount(PageRequest.of(0, 5));
