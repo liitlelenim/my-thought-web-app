@@ -2,10 +2,12 @@ package me.littlelenim.mythought.user.model;
 
 import me.littlelenim.mythought.thought.model.Comment;
 import me.littlelenim.mythought.thought.model.Thought;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "app_user")
@@ -30,11 +32,13 @@ public class AppUser {
     private List<Comment> comments = new ArrayList<>();
 
     public AppUser() {
+        this.bio = "";
     }
 
     public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
+        this.bio = "";
     }
 
     public String getUsername() {
@@ -81,5 +85,18 @@ public class AppUser {
 
     public void removeComment(Comment comment) {
         this.comments.remove(comment);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AppUser user = (AppUser) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }
