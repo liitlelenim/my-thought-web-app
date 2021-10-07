@@ -1,5 +1,6 @@
 package me.littlelenim.mythought.thought.model;
 
+import me.littlelenim.mythought.user.model.AppUser;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -25,6 +26,10 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "thought_id", nullable = false)
     private Thought thought;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "author_id", nullable = false)
+    private AppUser author;
 
     public Comment(String content) {
         this.content = content;
@@ -62,6 +67,14 @@ public class Comment {
 
     public void setThought(Thought thought) {
         this.thought = thought;
+    }
+
+    public AppUser getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AppUser author) {
+        this.author = author;
     }
 
     @Override

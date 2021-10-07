@@ -1,5 +1,6 @@
 package me.littlelenim.mythought.thought.model;
 
+import me.littlelenim.mythought.user.model.AppUser;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -34,6 +35,10 @@ public class Thought {
 
     @OneToMany(mappedBy = "thought", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "author_id", nullable = false)
+    private AppUser author;
 
     public Thought(String content) {
         this.content = content;
@@ -80,14 +85,23 @@ public class Thought {
         this.comments = comments;
     }
 
+    public AppUser getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AppUser author) {
+        this.author = author;
+    }
+
     public void addComment(Comment comment) {
         this.comments.add(comment);
         comment.setThought(this);
     }
 
-    public void removeComment(int index) {
-        this.comments.remove(index);
+    public void removeComment(Comment comment) {
+        this.comments.remove(comment);
     }
+
 
     @Override
     public boolean equals(Object o) {
