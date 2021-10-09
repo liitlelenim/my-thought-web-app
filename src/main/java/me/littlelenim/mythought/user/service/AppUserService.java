@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.littlelenim.mythought.user.exception.NoUserWithGivenUsernameException;
 import me.littlelenim.mythought.user.model.AppUser;
 import me.littlelenim.mythought.user.repository.AppUserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AppUserService {
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public AppUser save(AppUser user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return appUserRepository.save(user);
     }
 
