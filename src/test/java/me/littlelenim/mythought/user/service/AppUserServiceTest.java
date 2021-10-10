@@ -1,6 +1,10 @@
 package me.littlelenim.mythought.user.service;
 
+import me.littlelenim.mythought.user.dto.SignUpUserDto;
+import me.littlelenim.mythought.user.exception.InvalidPasswordException;
+import me.littlelenim.mythought.user.exception.InvalidUsernameException;
 import me.littlelenim.mythought.user.exception.NoUserWithGivenUsernameException;
+import me.littlelenim.mythought.user.exception.UsernameAlreadyTakenException;
 import me.littlelenim.mythought.user.model.AppUser;
 import me.littlelenim.mythought.user.repository.AppUserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -45,6 +49,30 @@ class AppUserServiceTest {
         final String testBio = "TEST BIO";
         appUserService.updateBio(user.getUsername(), testBio);
         assertEquals(testBio, appUserService.findByUsername(user.getUsername()).getBio());
+    }
+
+    @Test
+    void testInvalidUsernameException() {
+        assertThrows(InvalidUsernameException.class,
+                () -> appUserService.signUpUser(new SignUpUserDto("us er1", "Password1")));
+    }
+
+    @Test
+    void testInvalidPasswordException() {
+        assertThrows(InvalidPasswordException.class,
+                () -> appUserService.signUpUser(new SignUpUserDto("user1", "password")));
+        assertThrows(InvalidPasswordException.class,
+                () -> appUserService.signUpUser(new SignUpUserDto("user1", "password1")));
+        assertThrows(InvalidPasswordException.class,
+                () -> appUserService.signUpUser(new SignUpUserDto("user1", "PASSWORD1")));
+    }
+
+    @Test
+    void testUsernameAlreadyTakenException() {
+        appUserService.signUpUser(new SignUpUserDto("username", "Password1"));
+        assertThrows(UsernameAlreadyTakenException.class,
+                () -> appUserService.signUpUser(new SignUpUserDto("username", "Password1")));
+
     }
 
 }
