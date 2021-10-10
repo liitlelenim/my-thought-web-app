@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,13 +60,13 @@ public class ThoughtController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{id}/comments")
-    public void postComment(@RequestBody @Validated PostCommentDto dto, @PathVariable long id) {
-        commentService.post(dto, id);
+    public void postComment(@RequestBody @Validated PostCommentDto dto, @PathVariable long id, Principal principal) {
+        commentService.post(dto, id, principal.getName());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postThought(@RequestBody @Validated PostThoughtDto dto) {
-        thoughtService.post(dto);
+    public void postThought(@RequestBody @Validated PostThoughtDto dto, Principal principal) {
+        thoughtService.post(dto, principal.getName());
     }
 }

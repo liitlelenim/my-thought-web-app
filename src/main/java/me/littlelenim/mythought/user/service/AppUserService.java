@@ -24,6 +24,10 @@ public class AppUserService {
         return appUserRepository.findAppUserByUsername(username).orElseThrow(
                 () -> new NoUserWithGivenUsernameException("Could not find user with given username"));
     }
+    public AppUser findByUsernameWithThoughts(String username){
+        return appUserRepository.findAppUserByUsernameJoinThoughts(username).orElseThrow(
+                () -> new NoUserWithGivenUsernameException("Could not find user with given username"));
+    }
 
     @Transactional
     public void updateBio(String username, String bio) {

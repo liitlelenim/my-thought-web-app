@@ -6,6 +6,8 @@ import me.littlelenim.mythought.thought.exception.InvalidThoughtIdException;
 import me.littlelenim.mythought.thought.model.Tag;
 import me.littlelenim.mythought.thought.model.Thought;
 import me.littlelenim.mythought.thought.repository.ThoughtRepository;
+import me.littlelenim.mythought.user.model.AppUser;
+import me.littlelenim.mythought.user.service.AppUserService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,13 @@ import java.util.List;
 public class ThoughtService {
     private final ThoughtRepository thoughtRepository;
     private final TagService tagService;
+    private final AppUserService appUserService;
 
     @Transactional
-    public Thought post(PostThoughtDto dto) {
+    public Thought post(PostThoughtDto dto, String username) {
         Thought thought = new Thought(dto.getContent());
-
+        AppUser appUser = appUserService.findByUsername(username);
+        appUser.addThought(thought);
         List<Tag> tags = new ArrayList<>();
         dto.getTags().forEach((tag) -> tags.add(tagService.findByStringOrCreate(tag)));
         thought.setTags(tags);

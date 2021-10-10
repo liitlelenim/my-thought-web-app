@@ -3,11 +3,17 @@ package me.littlelenim.mythought.thought.service;
 import me.littlelenim.mythought.thought.dto.request.PostThoughtDto;
 import me.littlelenim.mythought.thought.exception.InvalidThoughtIdException;
 import me.littlelenim.mythought.thought.model.Thought;
+import me.littlelenim.mythought.thought.repository.TagRepository;
 import me.littlelenim.mythought.thought.repository.ThoughtRepository;
+import me.littlelenim.mythought.user.model.AppUser;
+import me.littlelenim.mythought.user.repository.AppUserRepository;
+import me.littlelenim.mythought.user.service.AppUserService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,29 +22,41 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestPropertySource(properties = "secret=secret")
 class ThoughtServiceTest {
 
     @Autowired
     private ThoughtRepository thoughtRepository;
     @Autowired
     private ThoughtService thoughtService;
+    @Autowired
+    private TagRepository tagRepository;
+    @Autowired
+    private AppUserService appUserService;
+    @Autowired
+    private AppUserRepository appUserRepository;
+
+    private String testUsername = "test_user";
+
+    @BeforeEach
+    void setUp() {
+        appUserService.save(new AppUser(testUsername, testUsername));
+    }
 
     @AfterEach
     void tearDown() {
         thoughtRepository.deleteAll();
-    }
-
-    @Test
-    void testThoughtSaving() {
-        Thought thought = new Thought("Testing");
-        assertEquals(thought, thoughtService.save(thought));
+        tagRepository.deleteAll();
+        appUserRepository.deleteAll();
     }
 
     @Test
     void testGettingAllThoughts() {
         assertTrue(thoughtService.getAll().isEmpty());
-
-        thoughtService.save(new Thought("Testing"));
+        AppUser appUser = appUserService.findByUsernameWithThoughts(testUsername);
+        Thought thought = new Thought("Testing");
+        appUser.addThought(thought);
+        thoughtService.save(thought);
         assertEquals(1, thoughtService.getAll().size());
     }
 
@@ -46,22 +64,26 @@ class ThoughtServiceTest {
     void testGettingThoughtById() {
 
         assertThrows(InvalidThoughtIdException.class, () -> thoughtService.getById(0L));
-        Thought thought = thoughtService.save(new Thought("Testing"));
-        thoughtService.getById(thought.getId());
-
-
+        AppUser user = appUserService.findByUsernameWithThoughts(testUsername);
+        Thought thought = new Thought("Testing");
+        user.addThought(thought);
+        Thought savedThought = thoughtService.save(thought);
+        thoughtService.getById(savedThought.getId());
     }
 
     @Test
     void testThoughtPostingUsingDto() {
         PostThoughtDto dto = new PostThoughtDto("Testing", List.of("test_tag1", "test_tag2"));
-        thoughtService.post(dto);
+        thoughtService.post(dto, testUsername);
     }
 
     @Test
     void testGettingFirstPageOfThoughts() {
+        AppUser user = appUserService.findByUsernameWithThoughts(testUsername);
         IntStream.range(0, 15).forEach((index) -> {
-            thoughtService.save(new Thought("index:" + index));
+            Thought thought = new Thought("index:" + index);
+            user.addThought(thought);
+            thoughtService.save(thought);
             try {
                 TimeUnit.MILLISECONDS.sleep(1);
             } catch (InterruptedException e) {
@@ -82,7 +104,7 @@ class ThoughtServiceTest {
     void testGettingFirstPageOfThoughtsWithGivenTag() {
         final String tagName = "tag";
         IntStream.range(0, 15).forEach((index) -> {
-            thoughtService.post(new PostThoughtDto("index:" + index, List.of("tag")));
+            thoughtService.post(new PostThoughtDto("index:" + index, List.of("tag")), testUsername);
             try {
                 TimeUnit.MILLISECONDS.sleep(1);
             } catch (InterruptedException e) {
@@ -100,7 +122,7 @@ class ThoughtServiceTest {
         final String thoughtContent = "test";
         PostThoughtDto dto = new PostThoughtDto(thoughtContent, List.of("tag1", "tag2", "tag3"));
 
-        Thought thought = thoughtService.post(dto);
+        Thought thought = thoughtService.post(dto, testUsername);
         assertEquals(thoughtContent, thought.getContent());
         assertFalse(thought.getTags().isEmpty());
     }
