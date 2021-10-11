@@ -114,7 +114,19 @@ class ThoughtServiceTest {
         List<Thought> thoughtList = thoughtService.getLatestThoughtsPageByTag(0, tagName);
         assertFalse(thoughtList.isEmpty());
         assertEquals(tagName, thoughtList.get(0).getTags().get(0).getName());
+    }
 
+    @Test
+    void testGettingFirstPageOfUserThoughts() {
+        IntStream.range(0, 3).forEach((index) -> {
+            thoughtService.post(new PostThoughtDto("index:" + index, List.of("tag")), testUsername);
+        });
+        appUserService.save(new AppUser("AnotherUser", "Password1"));
+        IntStream.range(0, 3).forEach((index) -> {
+            thoughtService.post(new PostThoughtDto("index:" + index, List.of("tag")), "AnotherUser");
+        });
+        List<Thought> thoughts = thoughtService.getLatestThoughtsPageByUser(0, testUsername);
+        assertEquals(3, thoughts.size());
     }
 
     @Test
@@ -138,8 +150,6 @@ class ThoughtServiceTest {
         assertEquals(1, thoughtService.getAmountOfLikes(thoughtId));
         thoughtService.toggleLike(thoughtId, testUsername);
         assertEquals(0, thoughtService.getAmountOfLikes(thoughtId));
-
-
     }
 
 }

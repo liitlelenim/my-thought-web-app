@@ -65,6 +65,11 @@ public class ThoughtService {
         return thoughtRepository.findByTagOrderByPostDateDesc(pageRequest, tag);
     }
 
+    public List<Thought> getLatestThoughtsPageByUser(int page, String username) {
+        Pageable pageRequest = PageRequest.of(page, 5);
+        return thoughtRepository.findByUsernameOrderByPostDateDesc(pageRequest, username);
+    }
+
     @Transactional
     public void toggleLike(Long thoughtId, String username) {
         AppUser user = appUserService.findByUsername(username);
