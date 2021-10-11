@@ -14,10 +14,13 @@ import java.util.Optional;
 @Repository
 public interface ThoughtRepository extends JpaRepository<Thought, Long> {
 
-    @Query("SELECT t , c FROM Thought t LEFT JOIN FETCH t.comments c WHERE t.id = :id")
-    Optional<Thought> findByIdAndJoinComments(@Param("id") Long id);
+    @Query("SELECT t , c FROM Thought t LEFT JOIN FETCH t.comments c  WHERE t.id = ?1")
+    Optional<Thought> findByIdAndJoinCommentsAndLikes(Long id);
 
-    @Query("SELECT t FROM Thought t ORDER BY t.postDate DESC")
+    @Query("select t, l from Thought t left join fetch t.likedBy l where t.id =?1")
+    Optional<Thought> findByIdAndJoinLikes(Long id);
+
+    @Query("SELECT t,l FROM Thought t left join fetch t.likedBy l ORDER BY t.postDate DESC")
     List<Thought> findByOrderByPostDateDesc(Pageable pageable);
 
     @Query("SELECT t FROM Thought  t WHERE :tag member t.tags ORDER BY t.postDate DESC")

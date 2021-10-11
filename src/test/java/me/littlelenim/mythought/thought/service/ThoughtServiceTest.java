@@ -127,5 +127,19 @@ class ThoughtServiceTest {
         assertFalse(thought.getTags().isEmpty());
     }
 
+    @Test
+    void testTogglingThoughtLike() {
+        PostThoughtDto dto = new PostThoughtDto("Test", List.of("tag1", "tag2", "tag3"));
+        Thought thought = thoughtService.post(dto, testUsername);
+        Long thoughtId = thought.getId();
+
+        assertEquals(0, thoughtService.getAmountOfLikes(thoughtId));
+        thoughtService.toggleLike(thoughtId, testUsername);
+        assertEquals(1, thoughtService.getAmountOfLikes(thoughtId));
+        thoughtService.toggleLike(thoughtId, testUsername);
+        assertEquals(0, thoughtService.getAmountOfLikes(thoughtId));
+
+
+    }
 
 }

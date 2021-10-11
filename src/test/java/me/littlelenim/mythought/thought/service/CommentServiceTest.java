@@ -60,7 +60,7 @@ class CommentServiceTest {
 
         assertEquals(thought, postedComment.getThought());
         assertEquals(commentText, postedComment.getContent());
-        assertEquals(1, thoughtService.getByIdWithComments(thoughtId).getComments().size());
+        assertEquals(1, thoughtService.getByIdWithCommentsAndLikes(thoughtId).getComments().size());
     }
 
 }

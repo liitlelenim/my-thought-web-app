@@ -40,6 +40,14 @@ public class Thought {
     @JoinColumn(name = "author_id", nullable = false)
     private AppUser author;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_thought_like",
+            joinColumns = @JoinColumn(name = "thought_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<AppUser> likedBy = new ArrayList<>();
+
     public Thought(String content) {
         this.content = content;
         this.postDate = new Date();
@@ -102,6 +110,21 @@ public class Thought {
         this.comments.remove(comment);
     }
 
+    public List<AppUser> getLikedBy() {
+        return likedBy;
+    }
+
+    public int getLikesAmount() {
+        return likedBy.size();
+    }
+
+    public void addLike(AppUser user) {
+        likedBy.add(user);
+    }
+
+    public void removeLike(AppUser user) {
+        likedBy.remove(user);
+    }
 
     @Override
     public boolean equals(Object o) {

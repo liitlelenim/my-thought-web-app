@@ -41,7 +41,7 @@ public class ThoughtController {
 
         List<ThoughtOverviewDto> formattedThoughts = new ArrayList<>();
         thoughts.forEach((thought -> {
-            formattedThoughts.add(new ThoughtOverviewDto(thought.getContent(), thought.getPostDate(),
+            formattedThoughts.add(new ThoughtOverviewDto(thought.getContent(), thought.getPostDate(), thought.getLikesAmount(),
                     tagService.tagListToTagNameList(thought.getTags())));
         }));
 
@@ -50,12 +50,18 @@ public class ThoughtController {
 
     @GetMapping("/{id}")
     public FullThoughtDto getThought(@PathVariable long id) {
-        Thought thought = thoughtService.getByIdWithComments(id);
+        Thought thought = thoughtService.getByIdWithCommentsAndLikes(id);
         List<GetCommentDto> formattedComments = new ArrayList<>();
         thought.getComments().forEach(comment -> formattedComments.add(new GetCommentDto(comment.getContent(), comment.getPostDate())));
 
         return new FullThoughtDto(thought.getContent(), thought.getPostDate(),
-                tagService.tagListToTagNameList(thought.getTags()), formattedComments);
+                tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAmountOfLikes(id), formattedComments);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{id}/likes")
+    public void toggleLike(@PathVariable long id, Principal principal) {
+        thoughtService.toggleLike(id, principal.getName());
     }
 
     @ResponseStatus(HttpStatus.CREATED)

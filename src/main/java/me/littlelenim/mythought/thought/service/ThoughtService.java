@@ -49,8 +49,8 @@ public class ThoughtService {
                 () -> new InvalidThoughtIdException("Could not find a thought with given id"));
     }
 
-    public Thought getByIdWithComments(Long id) {
-        return thoughtRepository.findByIdAndJoinComments(id).orElseThrow(
+    public Thought getByIdWithCommentsAndLikes(Long id) {
+        return thoughtRepository.findByIdAndJoinCommentsAndLikes(id).orElseThrow(
                 () -> new InvalidThoughtIdException("Could not find a thought with given id"));
     }
 
@@ -64,4 +64,23 @@ public class ThoughtService {
         Pageable pageRequest = PageRequest.of(page, 5);
         return thoughtRepository.findByTagOrderByPostDateDesc(pageRequest, tag);
     }
+
+    @Transactional
+    public void toggleLike(Long thoughtId, String username) {
+        AppUser user = appUserService.findByUsername(username);
+        Thought thought = thoughtRepository.findByIdAndJoinLikes(thoughtId).orElseThrow(
+                () -> new InvalidThoughtIdException("Could not find a thought with given id"));
+        if (thought.getLikedBy().contains(user)) {
+            thought.removeLike(user);
+        } else {
+            thought.addLike(user);
+        }
+        save(thought);
+    }
+
+    public int getAmountOfLikes(Long thoughtId) {
+        return thoughtRepository.findByIdAndJoinLikes(thoughtId).orElseThrow(
+                () -> new InvalidThoughtIdException("Could not find a thought with given id")).getLikesAmount();
+    }
+
 }

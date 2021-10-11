@@ -30,6 +30,8 @@ public class AppUser {
     private List<Thought> thoughts = new ArrayList<>();
     @OneToMany(mappedBy = "author")
     private List<Comment> comments = new ArrayList<>();
+    @ManyToMany(mappedBy = "likedBy")
+    private List<Thought> likedThoughts;
 
     public AppUser() {
         this.bio = "";

@@ -9,5 +9,6 @@ import java.util.List;
 public class ThoughtOverviewDto {
     private final String content;
     private final Date postDate;
+    private final int likesAmount;
     private final List<String> tags;
 }
