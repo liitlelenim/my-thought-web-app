@@ -58,6 +58,11 @@ public class ThoughtController {
                 tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAmountOfLikes(id), formattedComments);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteThought(@PathVariable long id, Principal principal) {
+        thoughtService.delete(id, principal.getName());
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{id}/likes")
     public void toggleLike(@PathVariable long id, Principal principal) {

@@ -71,6 +71,16 @@ public class ThoughtService {
     }
 
     @Transactional
+    public void delete(Long thoughtId, String username) {
+        Thought thought = getById(thoughtId);
+        if (thought.getAuthor().getUsername().equals(username)) {
+            AppUser user = appUserService.findByUsername(username);
+            user.removeThought(thought);
+            thoughtRepository.delete(thought);
+        }
+    }
+
+    @Transactional
     public void toggleLike(Long thoughtId, String username) {
         AppUser user = appUserService.findByUsername(username);
         Thought thought = thoughtRepository.findByIdAndJoinLikes(thoughtId).orElseThrow(

@@ -152,4 +152,16 @@ class ThoughtServiceTest {
         assertEquals(0, thoughtService.getAmountOfLikes(thoughtId));
     }
 
+    @Test
+    void deleteThought() {
+        IntStream.range(0, 3).forEach((index) -> {
+            thoughtService.post(new PostThoughtDto("index:" + index, List.of("tag")), testUsername);
+        });
+        Long thoughtId = thoughtService.getAll().get(0).getId();
+        thoughtService.delete(thoughtId, "not_existing");
+        assertEquals(3, thoughtService.getAll().size());
+        thoughtService.delete(thoughtId, testUsername);
+        assertEquals(2, thoughtService.getAll().size());
+    }
+
 }
