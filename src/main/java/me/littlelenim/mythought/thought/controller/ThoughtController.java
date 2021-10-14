@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/thoughts")
-@CrossOrigin
 @RequiredArgsConstructor
 public class ThoughtController {
 

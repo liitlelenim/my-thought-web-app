@@ -3,6 +3,8 @@ import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import {useState} from "react";
 import {Search} from "@mui/icons-material";
+import {Link} from "react-router-dom";
+
 
 const AppNavBar = () => {
 
@@ -18,7 +20,7 @@ const AppNavBar = () => {
             justifyItems: "right"
         }
         }>
-            <Typography variant="h5" component="div" class={"logo"}>
+            <Typography variant="h5" component="div" className={"logo"}>
                 MyThought
             </Typography>
 
@@ -35,13 +37,16 @@ const AppNavBar = () => {
                 className={"search-field"}
                 onChange={handleSearchBarChange}
                 value={searchInput}/>
-            <IconButton
-                size="large"
-                color="inherit"
-            >
-                <AccountCircle
-                    fontSize={"large"}/>
-            </IconButton>
+            <Link to={"/auth/login"} className={"icon-link"}>
+                <IconButton
+                    size="large"
+                    color="inherit"
+                >
+                    <AccountCircle
+                        fontSize={"large"}/>
+                </IconButton>
+            </Link>
+
         </Toolbar>
     </AppBar>
 }

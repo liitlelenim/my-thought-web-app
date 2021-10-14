@@ -1,0 +1,25 @@
+.form-card {
+    margin: auto;
+    margin-top: 3rem;
+    max-width: 550px;
+}
+
+.login-form-stack {
+    padding: 2rem;
+    max-width: 450px;
+    margin: auto;
+}
+
+.login-button-group {
+    display: flex;
+    justify-content: space-between;
+    justify-items: auto;
+}
+
+.form-message {
+    opacity: 1;
+    transition: opacity 1s;
+    width: 90%;
+    margin: 1rem auto auto;
+
+}
