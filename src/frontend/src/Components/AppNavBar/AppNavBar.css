@@ -1,0 +1,15 @@
+.logo{
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+    flex-grow: 0.85;
+}
+.search-field{
+    height: 2rem;
+    resize: none;
+    line-height: 2rem;
+    font-size: 1.25rem;
+    letter-spacing: 0;
+    outline: none;
+    margin-right: auto;
+}
