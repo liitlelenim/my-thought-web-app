@@ -1,6 +1,5 @@
 .form-card {
-    margin: auto;
-    margin-top: 3rem;
+    margin: 3rem auto auto;
     max-width: 550px;
 }
 
@@ -10,7 +9,7 @@
     margin: auto;
 }
 
-.login-button-group {
+.form-button-group {
     display: flex;
     justify-content: space-between;
     justify-items: auto;

@@ -1,19 +1,19 @@
 import {Alert, Button, Card, Stack, TextField, Typography} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
-import "./AppLoginForm.css";
+import "../AuthFormForm.css";
 import {useState} from "react";
 
 const AppLoginForm = ({setAuthToken}) => {
 
-    let alreadySendRequest = false;
+    let alreadySentRequest = false;
     const baseApiEndpoint = process.env.REACT_APP_API_BASE;
     const loginEndpoint = "/auth/login";
     const history = useHistory();
     const tryLoggingIn = () => {
-        if (alreadySendRequest) {
+        if (alreadySentRequest) {
             return;
         }
-        alreadySendRequest = true;
+        alreadySentRequest = true;
         if (usernameInput === "" || passwordInput === "") {
             setLoginMessage("You have to input required information to log in!");
             return;
@@ -45,8 +45,8 @@ const AppLoginForm = ({setAuthToken}) => {
             setAuthToken(json.jwt);
             history.push("/")
         })
-            .catch((err) => {
-                alreadySendRequest = false;
+            .catch((_) => {
+                alreadySentRequest = false;
             })
 
 
@@ -56,7 +56,7 @@ const AppLoginForm = ({setAuthToken}) => {
     const [passwordInput, setPasswordInput] = useState("");
     return (
         <>
-            <Alert className={"form-message"} color={"error"}
+            <Alert className={"form-message"} severity={"error"} color={"error"}
                    style={(loginMessage !== "") ? {
                        opacity: "1",
                        transition: "opacity 0.25s"
@@ -83,7 +83,7 @@ const AppLoginForm = ({setAuthToken}) => {
                         }}
                         value={passwordInput}
                     />
-                    <div className={"login-button-group"}>
+                    <div className={"form-button-group"}>
                         <Button variant={"contained"} onClick={tryLoggingIn}>Log in</Button>
                         <Typography variant={"p"}>Don't have an account?
                             <br/>
