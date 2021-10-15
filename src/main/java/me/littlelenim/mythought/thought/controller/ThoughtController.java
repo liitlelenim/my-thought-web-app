@@ -42,7 +42,7 @@ public class ThoughtController {
         List<ThoughtOverviewDto> formattedThoughts = new ArrayList<>();
         thoughts.forEach((thought -> {
             formattedThoughts.add(new ThoughtOverviewDto(thought.getContent(), thought.getPostDate(), thought.getLikesAmount(),
-                    tagService.tagListToTagNameList(thought.getTags())));
+                    tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAuthor(thought.getId()).getUsername()));
         }));
 
         return formattedThoughts;

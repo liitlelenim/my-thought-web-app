@@ -11,4 +11,5 @@ public class ThoughtOverviewDto {
     private final Date postDate;
     private final int likesAmount;
     private final List<String> tags;
+    private final String authorUsername;
 }
