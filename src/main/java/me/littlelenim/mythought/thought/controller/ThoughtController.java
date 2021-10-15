@@ -55,7 +55,8 @@ public class ThoughtController {
         thought.getComments().forEach(comment -> formattedComments.add(new GetCommentDto(comment.getContent(), comment.getPostDate())));
 
         return new FullThoughtDto(thought.getContent(), thought.getPostDate(),
-                tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAmountOfLikes(id), formattedComments);
+                tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAmountOfLikes(id), formattedComments
+                , thoughtService.getAuthor(thought.getId()).getUsername());
     }
 
     @DeleteMapping("/{id}")

@@ -12,4 +12,5 @@ public class FullThoughtDto {
     private final List<String> tags;
     private final int likesAmount;
     private final List<GetCommentDto> comments;
+    private final String authorUsername;
 }
