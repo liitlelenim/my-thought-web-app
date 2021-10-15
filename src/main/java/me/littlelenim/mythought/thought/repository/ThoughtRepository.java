@@ -28,4 +28,7 @@ public interface ThoughtRepository extends JpaRepository<Thought, Long> {
 
     @Query("select t from Thought  t where :username = t.author.username order by t.postDate DESC")
     List<Thought> findByUsernameOrderByPostDateDesc(Pageable pageable, @Param("username") String username);
+
+    @Query("select t,u from Thought t left join fetch  t.author u where t=?1 ")
+    Thought getThoughtWithAuthor(Thought thought);
 }

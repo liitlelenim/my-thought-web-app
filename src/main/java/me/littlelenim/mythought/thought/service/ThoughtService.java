@@ -98,4 +98,8 @@ public class ThoughtService {
                 () -> new InvalidThoughtIdException("Could not find a thought with given id")).getLikesAmount();
     }
 
+    public AppUser getAuthor(Long id) {
+        return thoughtRepository.getThoughtWithAuthor(getById(id)).getAuthor();
+    }
+
 }

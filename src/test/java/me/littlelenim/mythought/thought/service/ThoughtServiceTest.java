@@ -164,4 +164,12 @@ class ThoughtServiceTest {
         assertEquals(2, thoughtService.getAll().size());
     }
 
+    @Test
+    void getThoughtAuthor() {
+        PostThoughtDto dto = new PostThoughtDto("Test", List.of("tag1", "tag2", "tag3"));
+        Thought thought = thoughtService.post(dto, testUsername);
+        Long thoughtId = thought.getId();
+        assertEquals(testUsername, thoughtService.getAuthor(thoughtId).getUsername());
+    }
+
 }
