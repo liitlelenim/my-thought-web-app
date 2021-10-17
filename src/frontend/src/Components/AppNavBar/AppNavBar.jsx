@@ -1,14 +1,21 @@
 import "./AppNavBar.css";
 import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import {Link, useHistory} from "react-router-dom";
 import {useState} from "react";
-import {Search} from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import {AccountCircle, Search} from "@mui/icons-material";
 
 
 const AppNavBar = () => {
 
+    const history = useHistory();
     const [searchInput, setSearchInput] = useState("");
+
+    const handleSearch = () => {
+        if (searchInput !== "") {
+            history.replace(`/pages/0?tag=${searchInput}`);
+        }
+    }
+
     const handleSearchBarChange = (event) => {
         let searchText = event.target.value;
         searchText = searchText.trim();
@@ -20,11 +27,20 @@ const AppNavBar = () => {
             justifyItems: "right"
         }
         }>
-            <Typography variant="h5" component="div" className={"logo"}>
-                MyThought
+
+            <Typography variant="h5" className={"logo-box"} component="div" style={{
+                fontWeight: "600",
+                fontSize: "2rem",
+                letterSpacing: "0.1rem"
+            }}>
+                <Link to={"/"} className={"undecorated-link"}>
+                    MyThought
+                </Link>
+
             </Typography>
 
             <IconButton
+                onClick={handleSearch}
                 size="large"
                 color="inherit"
             >
@@ -37,7 +53,7 @@ const AppNavBar = () => {
                 className={"search-field"}
                 onChange={handleSearchBarChange}
                 value={searchInput}/>
-            <Link to={"/auth/login"} className={"icon-link"}>
+            <Link to={"/auth/login"} className={"undecorated-link"}>
                 <IconButton
                     size="large"
                     color="inherit"

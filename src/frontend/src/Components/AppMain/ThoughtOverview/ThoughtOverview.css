@@ -1,0 +1,36 @@
+.thought-card {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-width: 300px;
+    max-width: 600px;
+    min-height: 14rem;
+    padding: 1rem;
+    margin: 1.5rem auto auto;
+    box-shadow: 1px 1px 4px black;
+}
+
+.content-container {
+    padding: 0.25rem;
+    width: 100%;
+    margin: auto;
+    flex-grow: 1;
+}
+
+.author-and-date-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem;
+
+}
+
+.tags-container {
+    position: relative;
+    bottom: 0;
+
+}
+
+.like-container > span {
+    font-size: 1.5rem;
+}
+

@@ -1,4 +1,4 @@
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {MainPage} from "./Components/MainPage";
 import {AppNavBar} from "./Components/AppNavBar/AppNavBar";
 import {useState} from "react";
@@ -11,7 +11,15 @@ function App() {
         <div className="App">
             <AppNavBar/>
             <Switch>
-                <Route path={"/"} component={MainPage} exact/>
+                <Route path={"/"} exact>
+                    <Redirect
+                    to={{
+                        pathname:"/pages/0"
+                    }}/>
+                </Route>
+                <Route path={"/pages/:pageNumber"}>
+                    <MainPage/>
+                </Route>
                 <Route path={"/auth/login"} exact>
                     <AppLoginForm setAuthToken={(jwt) => {
                         setJWT(jwt)

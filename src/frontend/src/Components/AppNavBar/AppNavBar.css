@@ -1,9 +1,8 @@
-.logo {
-    font-weight: 600;
-    font-size: 2rem;
-    letter-spacing: 0.1rem;
+.logo-box {
     flex-grow: 0.85;
+
 }
+
 
 .search-field {
     height: 2rem;
@@ -15,11 +14,11 @@
     margin-right: auto;
 }
 
-.icon-link {
+.undecorated-link {
     text-decoration: none;
     color: inherit;
 }
 
-.icon-link:focus, .icon-link:hover, .icon-link:visited, .icon-link:link, .icon-link:active {
+.undecorated-link:focus, .undecorated-link:hover, .undecorated-link:visited, .undecorated-link:link, .undecorated-link:active {
     text-decoration: none;
 }
