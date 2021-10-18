@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
@@ -145,11 +146,11 @@ class ThoughtServiceTest {
         Thought thought = thoughtService.post(dto, testUsername);
         Long thoughtId = thought.getId();
 
-        assertEquals(0, thoughtService.getAmountOfLikes(thoughtId));
+        assertEquals(Collections.emptyList(), thoughtService.getLikersUsernames(thoughtId));
         thoughtService.toggleLike(thoughtId, testUsername);
-        assertEquals(1, thoughtService.getAmountOfLikes(thoughtId));
+        assertEquals(List.of(testUsername), thoughtService.getLikersUsernames(thoughtId));
         thoughtService.toggleLike(thoughtId, testUsername);
-        assertEquals(0, thoughtService.getAmountOfLikes(thoughtId));
+        assertEquals(Collections.emptyList(), thoughtService.getLikersUsernames(thoughtId));
     }
 
     @Test

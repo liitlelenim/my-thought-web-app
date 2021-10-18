@@ -41,7 +41,7 @@ public class ThoughtController {
 
         List<ThoughtOverviewDto> formattedThoughts = new ArrayList<>();
         thoughts.forEach((thought -> {
-            formattedThoughts.add(new ThoughtOverviewDto(thought.getContent(), thought.getPostDate(), thought.getLikesAmount(),
+            formattedThoughts.add(new ThoughtOverviewDto(thought.getContent(), thought.getPostDate(), thoughtService.getLikersUsernames(thought.getId()),
                     tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAuthor(thought.getId()).getUsername()));
         }));
 
@@ -55,7 +55,7 @@ public class ThoughtController {
         thought.getComments().forEach(comment -> formattedComments.add(new GetCommentDto(comment.getContent(), comment.getPostDate())));
 
         return new FullThoughtDto(thought.getContent(), thought.getPostDate(),
-                tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAmountOfLikes(id), formattedComments
+                tagService.tagListToTagNameList(thought.getTags()), thoughtService.getLikersUsernames(id), formattedComments
                 , thoughtService.getAuthor(thought.getId()).getUsername());
     }
 

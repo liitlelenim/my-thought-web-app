@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -93,9 +94,10 @@ public class ThoughtService {
         save(thought);
     }
 
-    public int getAmountOfLikes(Long thoughtId) {
+    public List<String> getLikersUsernames(Long thoughtId) {
         return thoughtRepository.findByIdAndJoinLikes(thoughtId).orElseThrow(
-                () -> new InvalidThoughtIdException("Could not find a thought with given id")).getLikesAmount();
+                () -> new InvalidThoughtIdException("Could not find a thought with given id"))
+                .getLikedBy().stream().map(AppUser::getUsername).collect(Collectors.toList());
     }
 
     public AppUser getAuthor(Long id) {
