@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class FullThoughtDto {
+    private final long id;
     private final String content;
     private final Date postDate;
     private final List<String> tags;

@@ -41,8 +41,12 @@ public class ThoughtController {
 
         List<ThoughtOverviewDto> formattedThoughts = new ArrayList<>();
         thoughts.forEach((thought -> {
-            formattedThoughts.add(new ThoughtOverviewDto(thought.getContent(), thought.getPostDate(), thoughtService.getLikersUsernames(thought.getId()),
-                    tagService.tagListToTagNameList(thought.getTags()), thoughtService.getAuthor(thought.getId()).getUsername()));
+            formattedThoughts.add(new ThoughtOverviewDto(thought.getId(),
+                    thought.getContent(),
+                    thought.getPostDate(),
+                    thoughtService.getLikersUsernames(thought.getId()),
+                    tagService.tagListToTagNameList(thought.getTags()),
+                    thoughtService.getAuthor(thought.getId()).getUsername()));
         }));
 
         return formattedThoughts;
@@ -54,9 +58,12 @@ public class ThoughtController {
         List<GetCommentDto> formattedComments = new ArrayList<>();
         thought.getComments().forEach(comment -> formattedComments.add(new GetCommentDto(comment.getContent(), comment.getPostDate())));
 
-        return new FullThoughtDto(thought.getContent(), thought.getPostDate(),
-                tagService.tagListToTagNameList(thought.getTags()), thoughtService.getLikersUsernames(id), formattedComments
-                , thoughtService.getAuthor(thought.getId()).getUsername());
+        return new FullThoughtDto(id,
+                thought.getContent(),
+                thought.getPostDate(),
+                tagService.tagListToTagNameList(thought.getTags()),
+                thoughtService.getLikersUsernames(id), formattedComments,
+                thoughtService.getAuthor(thought.getId()).getUsername());
     }
 
     @DeleteMapping("/{id}")
