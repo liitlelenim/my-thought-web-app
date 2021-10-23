@@ -5,8 +5,8 @@ import {useState} from "react";
 const AppSignUpForm = () => {
 
     let alreadySentRequest = false;
-    const baseApiEndpoint = process.env.REACT_APP_API_BASE;
-    const signUpEndpoint = "/auth/signup";
+    const baseApiUrl = process.env.REACT_APP_API_BASE;
+    const signUpUrl = "/auth/signup";
 
     const validPassword = (password) => {
         if (password.length < 6) {
@@ -62,7 +62,7 @@ const AppSignUpForm = () => {
                 "Content-Type": "application/json"
             }
         }
-        fetch(baseApiEndpoint + signUpEndpoint, request)
+        fetch(baseApiUrl + signUpUrl, request)
             .then((response) => {
                 if (response.status === 201) {
                     setSignUpMessage("Account successfully created!");

@@ -12,15 +12,15 @@ const MainPage = () => {
 
     let {pageNumber} = useParams();
 
-    const baseApiEndpoint = process.env.REACT_APP_API_BASE;
-    const thoughtsPageEndpoint = "/thoughts/pages/";
+    const baseApiUrl = process.env.REACT_APP_API_BASE;
+    const thoughtsPageUrl = "/thoughts/pages/";
     if (isNaN(pageNumber)) {
         pageNumber = 0;
     }
     const [page, setPage] = useState(pageNumber);
     const [thoughts, setThoughts] = useState([])
     useEffect(() => {
-        let finalEndpoint = baseApiEndpoint + thoughtsPageEndpoint + page;
+        let finalEndpoint = baseApiUrl + thoughtsPageUrl + page;
         if (tagSearch) {
             finalEndpoint += `?tag=${tagSearch}`;
         }
@@ -35,17 +35,16 @@ const MainPage = () => {
             }).then((json) => {
             setThoughts(json);
         })
-    }, [page, tagSearch])
-    useEffect(() => {
-        console.log(thoughts);
-    }, [thoughts])
+    }, [page, tagSearch]);
+
     return <div>
         {thoughts !== undefined ?
             thoughts.map((thought, id) =>
                 <ThoughtOverview
+                    id={thought.id}
                     content={thought.content}
                     date={thought.postDate}
-                    likes={thought.likesAmount}
+                    likersProp={thought.likersUsernames}
                     tags={thought.tags}
                     author={thought.authorUsername}
                     key={id}

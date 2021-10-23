@@ -3,11 +3,11 @@ import {Link, useHistory} from "react-router-dom";
 import "../AuthFormForm.css";
 import {useState} from "react";
 
-const AppLoginForm = ({setAuthToken}) => {
+const AppLoginForm = () => {
 
     let alreadySentRequest = false;
-    const baseApiEndpoint = process.env.REACT_APP_API_BASE;
-    const loginEndpoint = "/auth/login";
+    const baseApiUrl = process.env.REACT_APP_API_BASE;
+    const loginUrl = "/auth/login";
     const history = useHistory();
     const tryLoggingIn = () => {
         if (alreadySentRequest) {
@@ -18,18 +18,18 @@ const AppLoginForm = ({setAuthToken}) => {
             setLoginMessage("You have to input required information to log in!");
             return;
         }
+        const username = usernameInput;
         const request = {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             body: new URLSearchParams({
-                'username': usernameInput,
+                'username': username,
                 'password': passwordInput
             })
         }
-
-        fetch(baseApiEndpoint + loginEndpoint, request)
+        fetch(baseApiUrl + loginUrl, request)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -42,7 +42,8 @@ const AppLoginForm = ({setAuthToken}) => {
                 }
             }).then((json) => {
 
-            setAuthToken(json.jwt);
+            sessionStorage.setItem("jwt", json.substring("jwt : ".length));
+            sessionStorage.setItem("username", username);
             history.push("/")
         })
             .catch((_) => {
