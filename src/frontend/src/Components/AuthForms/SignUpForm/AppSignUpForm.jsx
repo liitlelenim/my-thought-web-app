@@ -1,13 +1,16 @@
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Alert, Button, Card, Stack, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 
 const AppSignUpForm = () => {
 
+    const history = useHistory();
     let alreadySentRequest = false;
     const baseApiUrl = process.env.REACT_APP_API_BASE;
     const signUpUrl = "/auth/signup";
-
+    if (sessionStorage.getItem("jwt")) {
+        history.replace(`/users/${sessionStorage.getItem("username")}`);
+    }
     const validPassword = (password) => {
         if (password.length < 6) {
             return false;

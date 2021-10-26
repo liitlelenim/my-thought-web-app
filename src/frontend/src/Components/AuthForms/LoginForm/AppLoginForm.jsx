@@ -4,11 +4,13 @@ import "../AuthFormForm.css";
 import {useState} from "react";
 
 const AppLoginForm = () => {
-
     let alreadySentRequest = false;
     const baseApiUrl = process.env.REACT_APP_API_BASE;
     const loginUrl = "/auth/login";
     const history = useHistory();
+    if(sessionStorage.getItem("jwt")){
+        history.replace(`/users/${sessionStorage.getItem("username")}`);
+    }
     const tryLoggingIn = () => {
         if (alreadySentRequest) {
             return;
