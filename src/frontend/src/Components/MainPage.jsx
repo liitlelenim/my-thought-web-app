@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import {ThoughtOverview} from "./AppMain/ThoughtOverview/ThoughtOverview";
 import {useLocation, useParams} from "react-router-dom";
+import {ThoughtCreationArea} from "./AppMain/ThoughtCreationArea/ThoughtCreationArea";
+import "./MainPage.css";
 
 const MainPage = () => {
 
@@ -18,8 +20,7 @@ const MainPage = () => {
         pageNumber = 0;
     }
     const [page, setPage] = useState(pageNumber);
-    const [thoughts, setThoughts] = useState([])
-    useEffect(() => {
+    const updateThoughts = () => {
         let finalEndpoint = baseApiUrl + thoughtsPageUrl + page;
         if (tagSearch) {
             finalEndpoint += `?tag=${tagSearch}`;
@@ -35,9 +36,14 @@ const MainPage = () => {
             }).then((json) => {
             setThoughts(json);
         })
+    }
+    const [thoughts, setThoughts] = useState([])
+    useEffect(() => {
+        updateThoughts();
     }, [page, tagSearch]);
 
-    return <div>
+    return <div className={"main-page-content"}>
+        <ThoughtCreationArea updateThoughts={updateThoughts}/>
         {thoughts !== undefined ?
             thoughts.map((thought, id) =>
                 <ThoughtOverview

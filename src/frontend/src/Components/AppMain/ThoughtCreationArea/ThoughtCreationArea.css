@@ -1,0 +1,32 @@
+.thought-creation-area-container {
+    text-align: center;
+    margin: auto;
+    max-width: 450px;
+    min-width: 200px;
+}
+
+.centered-info {
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+
+.thought-creation-text-field {
+    width: 100%;
+}
+
+.tag-creation-text-field {
+    width: 100%;
+}
+
+.characters-counter {
+    margin: 10px 0;
+    width: 50%;
+    text-align: left;
+}
+
+.button-to-right {
+    width: 100%;
+    margin: 10px 0;
+    text-align: right;
+}
