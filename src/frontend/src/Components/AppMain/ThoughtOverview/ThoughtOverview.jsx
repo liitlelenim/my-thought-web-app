@@ -46,8 +46,8 @@ const ThoughtOverview = ({id, content, date, likersProp, tags, author}) => {
     }
     return (<Card variant={"outlined"} className={"thought-card"}>
         <div className={"author-and-date-container"}>
-            <Link to={`/users/${author}`}>{author}</Link>
-            <span>{
+            <Link to={`/users/${author}`} className={"user-link"}>{author}</Link>
+            <span className={"thought-date"}>{
                 formatJavaDate(date)
             }</span>
         </div>
@@ -57,7 +57,7 @@ const ThoughtOverview = ({id, content, date, likersProp, tags, author}) => {
 
         <div className={"tags-container"}>
             {tags.map((tag, id) =>
-                <span className="tag" key={id}>#{tag}</span>
+                <Link to={`/pages/0?tag=${tag}`} className="tag" key={id}>#{tag}</Link>
             )}
         </div>
         <div className={"like-container"}>
