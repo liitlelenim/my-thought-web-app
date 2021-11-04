@@ -1,0 +1,47 @@
+.most-popular-tags-table {
+    z-index: 1;
+    position: fixed;
+    top: 50%;
+    bottom: 0;
+    background: white;
+    text-align: center;
+    height: 25rem;
+    width: 15rem;
+    border-radius: 2px;
+    transform: translate(-101%, -50%);
+    filter: drop-shadow(1px 1px 2px black);
+    transition: transform 1s;
+}
+
+.most-popular-tags-table[data-render=false] {
+    display: none;
+}
+
+.most-popular-tags-table[data-hidden=false] {
+    transform: translate(0, -50%);
+}
+
+.tags-table-button {
+    position: relative;
+    right: -50%;
+    top: 50%;
+    transform: translate(30%, -200%) rotate(0deg);
+}
+
+.tags-table-button[data-hidden="false"] {
+    transform: translate(30%, -200%) rotate(180deg);
+}
+
+.tags-table-button-icon {
+    transform: scale(2.75);
+}
+
+.popular-tag {
+    height: 2rem;
+}
+
+.most-popular-tags-header {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}

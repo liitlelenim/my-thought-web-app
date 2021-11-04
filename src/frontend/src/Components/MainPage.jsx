@@ -4,6 +4,7 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 import {ThoughtCreationArea} from "./AppMain/ThoughtCreationArea/ThoughtCreationArea";
 import "./MainPage.css";
 import {PageNav} from "./AppMain/PageNav/PageNav";
+import {MostPopularTagsTable} from "./MostPopularTagsTable/MostPopularTagsTable";
 
 const MainPage = () => {
 
@@ -70,6 +71,7 @@ const MainPage = () => {
                     author={thought.authorUsername}
                     key={id}
                 />) : <></>}
+        <MostPopularTagsTable/>
         <PageNav page={parseInt(page)} setPage={setPage} thoughtsAmount={thoughts.length}/>
     </div>;
 }
