@@ -47,6 +47,7 @@ const AppLoginForm = () => {
             sessionStorage.setItem("jwt", json.substring("jwt : ".length));
             sessionStorage.setItem("username", username);
             history.push("/")
+            window.location.reload();
         })
             .catch((_) => {
                 alreadySentRequest = false;

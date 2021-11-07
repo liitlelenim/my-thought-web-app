@@ -1,8 +1,8 @@
 import "./AppNavBar.css";
 import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
-import {useState} from "react";
-import {AccountCircle, Search} from "@mui/icons-material";
+import {useEffect, useState} from "react";
+import {AccountCircle, Logout, Search} from "@mui/icons-material";
 
 
 const AppNavBar = () => {
@@ -15,7 +15,10 @@ const AppNavBar = () => {
             history.replace(`/pages/0?tag=${searchInput}`);
         }
     }
-
+    const [jwt, setJwt] = useState(undefined);
+    useEffect(() => {
+        setJwt(sessionStorage.getItem("jwt"));
+    });
     const handleSearchBarChange = (event) => {
         let searchText = event.target.value;
         searchText = searchText.trim();
@@ -62,6 +65,18 @@ const AppNavBar = () => {
                         fontSize={"large"}/>
                 </IconButton>
             </Link>
+            {
+                jwt ?
+                    <IconButton color={"inherit"} onClick={() => {
+                        sessionStorage.clear();
+                        history.replace("/");
+                        window.location.reload();
+                    }}>
+                        <Logout fontSize={"large"}/>
+                    </IconButton>
+                    :
+                    <></>
+            }
 
         </Toolbar>
     </AppBar>
