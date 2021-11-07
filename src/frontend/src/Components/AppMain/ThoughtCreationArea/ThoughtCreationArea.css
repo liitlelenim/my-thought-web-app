@@ -1,7 +1,8 @@
 .thought-creation-area-container {
     text-align: center;
     margin: auto;
-    max-width: 450px;
+    width: 95%;
+    max-width: 600px;
     min-width: 200px;
 }
 

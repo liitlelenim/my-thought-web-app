@@ -16,7 +16,7 @@ const ThoughtCreationArea = ({updateThoughts}) => {
         let value = event.target.value.trimLeft().replace(/\s+/g, ' ');
         let tags = value.split(" ");
         tags.map(tag => {
-            tag.trim()
+            return tag.trim();
         })
         tags = tags.filter(tag => tag !== "")
         let tagTooLong = false;

@@ -1,0 +1,12 @@
+.thought-comment-container{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 600px;
+    min-width: 250px;
+    min-height: 7rem;
+    padding: 1rem;
+    margin: 1.5rem auto auto;
+    box-shadow: 1px 1px 3px black;
+    word-wrap: break-word;
+}

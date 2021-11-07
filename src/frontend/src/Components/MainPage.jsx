@@ -69,6 +69,7 @@ const MainPage = () => {
                     likersProp={thought.likersUsernames}
                     tags={thought.tags}
                     author={thought.authorUsername}
+                    isLink={true}
                     key={id}
                 />) : <></>}
         <MostPopularTagsTable/>

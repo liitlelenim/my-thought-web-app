@@ -1,13 +1,14 @@
 .thought-card {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    min-width: 300px;
+    width: 90%;
     max-width: 600px;
+    min-width: 250px;
     min-height: 14rem;
     padding: 1rem;
     margin: 1.5rem auto auto;
     box-shadow: 1px 1px 3px black;
+    word-wrap: break-word;
 }
 
 .content-container {
@@ -38,15 +39,24 @@
 .tags-container {
     position: relative;
     bottom: 0;
-
+    word-break: break-word;
 }
 
-.like-container > span {
+.actions-container {
+    display: flex;
+}
+
+.actions-container > span {
     font-size: 1.5rem;
+    flex: 1;
+    height: 100%;
+    align-self: center;
 }
-.thought-date{
+
+.thought-date {
     font-weight: bold;
 }
+
 .tag {
     color: black;
     font-weight: bold;

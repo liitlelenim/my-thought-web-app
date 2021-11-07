@@ -1,0 +1,21 @@
+.comments-container{
+    padding: 1rem;
+    width: 80%;
+    margin: auto;
+}
+.comment-creation-field, .comment-creation-utility-container{
+    max-width: 500px;
+    width: 100%;
+}
+.comment-creation-container{
+    text-align: center;
+}
+.comment-creation-container > div{
+    margin: auto;
+}
+.comment-creation-utility-container
+{
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,10 +1,11 @@
-import {Card} from "@mui/material";
+import {Card, IconButton} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
 import "./ThoughtOverview.css";
 import {LikeComponent} from "./LikeComponent/LikeComponent";
 import {useState} from "react";
+import {Comment} from "@mui/icons-material";
 
-const ThoughtOverview = ({id, content, date, likersProp, tags, author}) => {
+const ThoughtOverview = ({id, content, date, likersProp, tags, author, isLink}) => {
     const baseApiUrl = process.env.REACT_APP_API_BASE;
     const toggleLikeUrl = `/thoughts/${id}/likes`;
     const [likers, setLikers] = useState(likersProp);
@@ -60,8 +61,16 @@ const ThoughtOverview = ({id, content, date, likersProp, tags, author}) => {
                 <Link to={`/pages/0?tag=${tag}`} className="tag" key={id}>#{tag}</Link>
             )}
         </div>
-        <div className={"like-container"}>
+        <div className={"actions-container"}>
             <LikeComponent likers={likers} username={auth.username} togglePostLike={toggleThoughtLikeRequest}/>
+            {isLink ? <IconButton
+                onClick={() => {
+                    history.replace(`/thought/${id}`)
+                }}
+                to={`/thought/${id}`}
+                className={"undecorated-link comment-link"}>
+                <Comment
+                    fontSize={"large"}/></IconButton> : <></>}
         </div>
     </Card>)
 }
