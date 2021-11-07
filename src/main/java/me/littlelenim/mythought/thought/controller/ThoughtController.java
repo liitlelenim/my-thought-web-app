@@ -30,12 +30,18 @@ public class ThoughtController {
     private final CommentService commentService;
 
     @GetMapping("/pages/{pageNumber}")
-    public List<ThoughtOverviewDto> getThoughtsPage(@PathVariable int pageNumber, @RequestParam Optional<String> tag) {
+    public List<ThoughtOverviewDto> getThoughtsPage(@PathVariable int pageNumber, @RequestParam Optional<String> tag
+            , @RequestParam Optional<String> username) {
         List<Thought> thoughts;
 
         if (tag.isPresent()) {
             thoughts = thoughtService.getLatestThoughtsPageByTag(pageNumber, tag.get());
-        } else {
+        }
+        else if(username.isPresent())
+        {
+            thoughts = thoughtService.getLatestThoughtsPageByUser(pageNumber, username.get());
+        }
+        else {
             thoughts = thoughtService.getLatestThoughtsPage(pageNumber);
         }
 
