@@ -1,19 +1,17 @@
 import {useEffect, useState} from "react";
 import {ThoughtOverview} from "./AppMain/ThoughtOverview/ThoughtOverview";
-import {useHistory, useLocation, useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {ThoughtCreationArea} from "./AppMain/ThoughtCreationArea/ThoughtCreationArea";
 import "./MainPage.css";
 import {PageNav} from "./AppMain/PageNav/PageNav";
 import {MostPopularTagsTable} from "./MostPopularTagsTable/MostPopularTagsTable";
+import {StringParam, useQueryParam} from "use-query-params";
 
 const MainPage = () => {
 
-    const useQuery = () => {
-        return new URLSearchParams(useLocation().search);
-    }
-    const query = useQuery();
-    const tagSearch = query.get("tag");
-    const username = query.get("username");
+
+    const [tagSearch] = useQueryParam("tag", StringParam);
+    const [username] = useQueryParam("username", StringParam);
     const history = useHistory();
     let {pageNumber} = useParams();
 
@@ -25,7 +23,9 @@ const MainPage = () => {
     const [page, setPage] = useState(pageNumber);
     const updateThoughts = () => {
         let finalEndpoint = baseApiUrl + thoughtsPageUrl + page;
-        if (tagSearch) {
+        if (username) {
+            finalEndpoint += `?username=${username}`;
+        } else if (tagSearch) {
             finalEndpoint += `?tag=${tagSearch}`;
         }
         fetch(finalEndpoint)
@@ -43,14 +43,13 @@ const MainPage = () => {
     const [thoughts, setThoughts] = useState([])
     useEffect(() => {
         updateThoughts();
-    }, [tagSearch]);
+    }, [tagSearch, username]);
 
     useEffect(() => {
         let newUrl = `/pages/${page}`;
         if (username) {
             newUrl += `?username=${username}`;
-        }
-        if (tagSearch) {
+        } else if (tagSearch) {
             newUrl += `?tag=${tagSearch}`;
         }
         history.replace(newUrl);
@@ -59,7 +58,7 @@ const MainPage = () => {
             behavior: "auto"
         });
         updateThoughts();
-    }, [page, history, tagSearch]);
+    }, [page,baseApiUrl, history, tagSearch,username]);
 
 
     return <div className={"main-page-content"}>
