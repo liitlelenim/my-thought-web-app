@@ -13,6 +13,7 @@ const MainPage = () => {
     }
     const query = useQuery();
     const tagSearch = query.get("tag");
+    const username = query.get("username");
     const history = useHistory();
     let {pageNumber} = useParams();
 
@@ -46,6 +47,9 @@ const MainPage = () => {
 
     useEffect(() => {
         let newUrl = `/pages/${page}`;
+        if (username) {
+            newUrl += `?username=${username}`;
+        }
         if (tagSearch) {
             newUrl += `?tag=${tagSearch}`;
         }
@@ -59,7 +63,8 @@ const MainPage = () => {
 
 
     return <div className={"main-page-content"}>
-        <ThoughtCreationArea updateThoughts={updateThoughts}/>
+        {!username ? <ThoughtCreationArea updateThoughts={updateThoughts}/> :
+            <h2 className={"centered-info"}>{username}'s thoughts:</h2>}
         {thoughts ?
             thoughts.map((thought, id) =>
                 <ThoughtOverview

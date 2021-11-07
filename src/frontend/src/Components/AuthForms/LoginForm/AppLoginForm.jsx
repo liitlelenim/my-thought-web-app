@@ -9,7 +9,7 @@ const AppLoginForm = () => {
     const loginUrl = "/auth/login";
     const history = useHistory();
     if(sessionStorage.getItem("jwt")){
-        history.replace(`/users/${sessionStorage.getItem("username")}`);
+        history.replace(`/pages/0?username=${sessionStorage.getItem("username")}`);
     }
     const tryLoggingIn = () => {
         if (alreadySentRequest) {

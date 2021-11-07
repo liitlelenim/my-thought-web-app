@@ -10,7 +10,7 @@ const ThoughtComment = ({author, content, date}) => {
 
     return <Card variant={"outlined"} className={"thought-comment-container"}>
         <div className={"author-and-date-container"}>
-            <Link to={`/users/${author}`} className={"user-link"}>{author}</Link>
+            <Link to={`/pages/0?username=${author}`} className={"user-link"}>{author}</Link>
             <span className={"thought-date"}>{
                 formatJavaDate(date)
             }</span>

@@ -47,7 +47,7 @@ const ThoughtOverview = ({id, content, date, likersProp, tags, author, isLink}) 
     }
     return (<Card variant={"outlined"} className={"thought-card"}>
         <div className={"author-and-date-container"}>
-            <Link to={`/users/${author}`} className={"user-link"}>{author}</Link>
+            <Link to={`/pages/0?username=${author}`} className={"user-link"}>{author}</Link>
             <span className={"thought-date"}>{
                 formatJavaDate(date)
             }</span>

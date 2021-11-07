@@ -9,7 +9,7 @@ const AppSignUpForm = () => {
     const baseApiUrl = process.env.REACT_APP_API_BASE;
     const signUpUrl = "/auth/signup";
     if (sessionStorage.getItem("jwt")) {
-        history.replace(`/users/${sessionStorage.getItem("username")}`);
+        history.replace(`/pages/0?username=${sessionStorage.getItem("username")}`);
     }
     const validPassword = (password) => {
         if (password.length < 6) {
