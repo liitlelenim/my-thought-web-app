@@ -49,11 +49,6 @@ public class AppUserService {
     }
 
 
-    @Transactional
-    public void updateBio(String username, String bio) {
-        findByUsername(username).setBio(bio);
-    }
-
     private void validateUsername(String username) {
         if (username.contains(" ")) {
             throw new InvalidUsernameException("Username must not contain any white spaces");

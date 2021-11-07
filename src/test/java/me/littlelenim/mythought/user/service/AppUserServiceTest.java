@@ -43,15 +43,6 @@ class AppUserServiceTest {
     }
 
     @Test
-    void testChangingUserBio() {
-        AppUser user = appUserService.save(new AppUser("test", "test123"));
-        assertEquals("", user.getBio());
-        final String testBio = "TEST BIO";
-        appUserService.updateBio(user.getUsername(), testBio);
-        assertEquals(testBio, appUserService.findByUsername(user.getUsername()).getBio());
-    }
-
-    @Test
     void testInvalidUsernameException() {
         assertThrows(InvalidUsernameException.class,
                 () -> appUserService.signUpUser(new SignUpUserDto("us er1", "Password1")));

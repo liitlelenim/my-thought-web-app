@@ -24,8 +24,7 @@ public class AppUser {
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "bio", nullable = false)
-    private String bio;
+
     @OneToMany(mappedBy = "author")
     private List<Thought> thoughts = new ArrayList<>();
     @OneToMany(mappedBy = "author")
@@ -34,13 +33,11 @@ public class AppUser {
     private List<Thought> likedThoughts;
 
     public AppUser() {
-        this.bio = "";
     }
 
     public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
-        this.bio = "";
     }
 
     public String getUsername() {
@@ -59,13 +56,6 @@ public class AppUser {
         this.password = password;
     }
 
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
 
     public List<Thought> getThoughts() {
         return thoughts;
