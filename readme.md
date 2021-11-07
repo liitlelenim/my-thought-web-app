@@ -41,7 +41,8 @@ Check out live version right now on: https://my-thought.netlify.app/
 
 ## Running project on your machine
 
-* First you should open a terminal window inside the project root folder and then run the following command
+* First you should find "application.properties" file and set up your own secret value, after that you have to open a 
+  terminal window inside the project root folder and then run the following command
   ```console
   mvn spring-boot:run
 * Next you have to locate the .env.sample file in frontend directory. Now you should change its name to ".env" and set
