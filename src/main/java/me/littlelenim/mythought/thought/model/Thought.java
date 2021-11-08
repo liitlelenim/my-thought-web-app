@@ -40,7 +40,7 @@ public class Thought {
     @JoinColumn(name = "author_id", nullable = false)
     private AppUser author;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_thought_like",
             joinColumns = @JoinColumn(name = "thought_id"),
