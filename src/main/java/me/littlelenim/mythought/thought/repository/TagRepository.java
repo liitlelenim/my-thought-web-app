@@ -12,6 +12,6 @@ import java.util.List;
 public interface TagRepository extends JpaRepository<Tag, Long> {
     Tag findByName(String name);
 
-    @Query("select t from Tag t order by t.thoughts.size DESC")
+    @Query("select t from Tag t where size(t.thoughts) > 0 order by size(t.thoughts) DESC")
     List<Tag> getTagsOrderedByThoughtsAmount(Pageable pageable);
 }
