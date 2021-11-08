@@ -25,7 +25,9 @@ public class ThoughtService {
     private final TagService tagService;
     private final AppUserService appUserService;
 
-    @Transactional
+    @Transactional //te transactionale w większości nei są potrzebne
+    //robisz na koniec tylko jeden save na bazie, reszta to odczyty albo tworzenie obiektów
+    //jeśli cos po drodze rzuci wyjątek to zapis do bazy i tak się nie uda, nie ma tu czego rollbackować, więc transakcja jest niepotrzebna
     public Thought post(PostThoughtDto dto, String username) {
         Thought thought = new Thought(dto.getContent());
         AppUser appUser = appUserService.findByUsername(username);
@@ -36,7 +38,7 @@ public class ThoughtService {
         return save(thought);
     }
 
-    @Transactional
+    @Transactional //niepotrzebne
     public Thought save(Thought thought) {
         return thoughtRepository.save(thought);
     }
@@ -47,7 +49,8 @@ public class ThoughtService {
 
     public Thought getById(Long id) {
         return thoughtRepository.findById(id).orElseThrow(
-                () -> new InvalidThoughtIdException("Could not find a thought with given id"));
+                () -> new InvalidThoughtIdException("Could not find a thought with given id: " + id));
+        //loguj wartości, to się potem przydaje
     }
 
     public Thought getByIdWithCommentsAndLikes(Long id) {
@@ -71,10 +74,13 @@ public class ThoughtService {
         return thoughtRepository.findByUsernameOrderByPostDateDesc(pageRequest, username);
     }
 
-    @Transactional
+    @Transactional // nie jest tu potrzebne
     public void delete(Long thoughtId, String username) {
         Thought thought = getById(thoughtId);
-        if (thought.getAuthor().getUsername().equals(username)) {
+        if (username.equals(thought.getAuthor().getUsername())) {
+//        if (thought.getAuthor().getUsername().equals(username))
+//        ogólna zasada - pisząc porównanie odwróć logikę, jest większa szansa, że unikniesz nullPointerException, wiem, że tu ciężko, żeby user nie miał username :)
+
             AppUser user = appUserService.findByUsername(username);
             user.removeThought(thought);
             thoughtRepository.delete(thought);

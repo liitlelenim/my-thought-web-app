@@ -11,8 +11,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "thought")
+
+//gettery settery, kontruktor, equals, hashcode jak w poprzednich komentarzach
 public class Thought {
-    @SequenceGenerator(
+    @SequenceGenerator( //duży plus za sekwencję!
             name = "thought_sequence",
             sequenceName = "thought_sequence",
             allocationSize = 1
@@ -25,7 +27,8 @@ public class Thought {
     private String content;
     @Column(name = "post_date", nullable = false)
     private Date postDate;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER) //niee, produkcyjnie to masakra, która może zajechać bazę danych.
+    //jeśli musisz wyciągnąć powiązane kolekcje najlepiej zrobić to odpowiednim poleceniem JPQL - poczytaj o JOIN FETCH
     @JoinTable(
             name = "thought_tag",
             joinColumns = @JoinColumn(name = "thought_id"),

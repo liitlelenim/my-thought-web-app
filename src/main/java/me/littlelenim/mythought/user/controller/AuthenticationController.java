@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
-    public void signUpUser(@RequestBody @Validated SignUpUserDto dto) {
+    public void signUpUser(@RequestBody @Valid SignUpUserDto dto) {
         appUserService.signUpUser(dto);
     }
 }

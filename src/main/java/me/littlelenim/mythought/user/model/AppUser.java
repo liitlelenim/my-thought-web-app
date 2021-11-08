@@ -23,15 +23,17 @@ public class AppUser {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
     @Column(name = "password")
-    private String password;
+    private String password; // tego nie chcesz zwracać, spraw, żeby nie było gettera do tego pola
+    // hasła nie powinny być nigdy zwracane, co najwyżej mogą być nadpisane nowym hashem
 
     @OneToMany(mappedBy = "author")
-    private List<Thought> thoughts = new ArrayList<>();
+    private List<Thought> thoughts = new ArrayList<>(); // nie trzeba inicjalizować listy w tym miejscu.
     @OneToMany(mappedBy = "author")
     private List<Comment> comments = new ArrayList<>();
     @ManyToMany(mappedBy = "likedBy")
     private List<Thought> likedThoughts;
 
+    //konstruktor, gettery i settery do zastąpienia adnotacjami Lomboka
     public AppUser() {
     }
 

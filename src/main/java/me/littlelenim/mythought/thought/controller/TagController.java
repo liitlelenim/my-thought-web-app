@@ -19,5 +19,8 @@ public class TagController {
     @GetMapping("/most-popular")
     public List<String> getMostPopularTags() {
         return tagService.getMostPopularTags().stream().map(Tag::getName).collect(Collectors.toList());
+        //to tagservice powinien zwrócić posortowaną listę samych tagów, kontroler nie powinien tego robić
+        // później możesz chcieć cache'ować wyniki i odpytywać bazę o nie np co minutę, a nie przy każdym strzale do kontrolera
+        // dzięki temu aplikacja ma mniej roboty, mniej obiektów do tworzenia
     }
 }
