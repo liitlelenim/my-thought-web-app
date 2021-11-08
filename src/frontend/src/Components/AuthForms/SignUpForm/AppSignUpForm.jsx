@@ -75,7 +75,7 @@ const AppSignUpForm = () => {
                     setPasswordInput("");
                     setConfirmPasswordInput("");
                 } else if (response.status === 400) {
-                    setSignUpMessage("User with given username already exists!");
+                    setSignUpMessage("Oops, something went wrong, make sure that username isn't already taken.");
                     setAlertSeverity("error");
                     alreadySentRequest = false;
                 }
