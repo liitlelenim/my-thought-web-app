@@ -20,7 +20,7 @@ public interface ThoughtRepository extends JpaRepository<Thought, Long> {
     @Query("select distinct t, l from Thought t left join fetch t.likedBy l where t.id =?1")
     Optional<Thought> findByIdAndJoinLikes(Long id);
 
-    @Query("select distinct t,l from Thought t left join  t.likedBy l order by t.postDate DESC")
+    @Query("select t,l from Thought t left join  t.likedBy l order by t.postDate DESC")
     List<Thought> findByOrderByPostDateDesc(Pageable pageable);
 
     @Query("select t from Thought  t where :tag member t.tags order by t.postDate DESC")

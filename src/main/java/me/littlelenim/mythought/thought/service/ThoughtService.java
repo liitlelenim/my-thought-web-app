@@ -91,7 +91,6 @@ public class ThoughtService {
         } else {
             thought.addLike(user);
         }
-        save(thought);
     }
 
     public List<String> getLikersUsernames(Long thoughtId) {

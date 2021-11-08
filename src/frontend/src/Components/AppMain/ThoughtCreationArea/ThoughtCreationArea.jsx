@@ -59,12 +59,13 @@ const ThoughtCreationArea = ({updateThoughts}) => {
         }
         fetch(baseApiUrl + postThoughtUrl, requestOptions)
             .then((response) => {
-                requestProcessing = false;
                 if (response.status === 201) {
                     setThoughtContent("");
                     setTagsText("");
                     setTags([]);
                     updateThoughts();
+                    requestProcessing = false;
+
                 } else if (response.status === 403) {
                     history.replace("auth/login");
                 }
